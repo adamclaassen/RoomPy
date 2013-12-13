@@ -35,6 +35,7 @@ class Roomba:
         hold device detect low for 500ms wake roomba up
         not sure how to do this right now
         """
+        pass
 
     def spot_clean(self):
         self.serial.write("134")
