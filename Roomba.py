@@ -1,3 +1,4 @@
+import serial as pyserial
 class Roomba:
 
     baud_dict = {300:"0", 600:"1", 1200:"2", 2400:"3", 4800:"4", 9600:"5", 144000:"6", 19200:"7", 28800:"8", 38400:"9", 57600:"10", 115200:"11"}
@@ -6,7 +7,7 @@ class Roomba:
         pass
 
     def open_serial_port(self, port):
-        self.serial = open(port, "rw")
+        self.serial = pyserial.Serial(port, baudrate = 19200, timeout = 0.1)
 
     def set_off_mode(self):
         pass
