@@ -52,7 +52,13 @@ class Roomba:
         speed is in mm/s
         turn is radius in mm
         """
-        pass
+        if speed < 0:
+            speed = self.twos_complement(speed)
+
+        if turn < 0:
+            turn = self.twos_complement(turn)
+
+        
 
     def cleaning(self, motor):
         """
@@ -70,4 +76,34 @@ class Roomba:
     def sensor(self, sensor):
         self.serial.write("142")
         self.serial.write(self.sensors[sensor])
+
+    def get_drive_output(self, value):
+        if value >= 0:
+            value = hex(value)
+            value = value[2:].zfill(4)
+            byte1 = value[:1]
+            byte2 = value[2:]
+            byte1 = int(byte1, 16)
+            byte2 = int(byte2, 16)
+            return [byte1, byte2]
+
+        if value < 0:
+            value = bin(value)
+            value = value[2:].zfill(16)
+            twos = ''
+            for bit in value:
+                if bit == '0': 
+                    twos += '1'
+                if bit == '1':
+                    twos += '0'
+
+            twos = '0b' + twos
+            twos = int(twos, 2)
+            hexed = hex(twos)
+            byte1 = hexed[2:3]
+            byte2 = hexed[4:5]
+            byte1 = int(byte1, 16)
+            byte2 = int(byte2, 16)
+            return [byte1, byte2]
+        
         
