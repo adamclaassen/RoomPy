@@ -1,3 +1,7 @@
+#@author Adam Claassen
+#All functions are as defined by http://www.irobot.com/images/consumer/hacker/Roomba_SCI_Spec_Manual.pdf
+#Retrived in December 2013
+ 
 import serial as pyserial
 class Roomba:
 
