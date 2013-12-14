@@ -52,13 +52,36 @@ class Roomba:
         speed is in mm/s
         turn is radius in mm
         """
-        if speed < 0:
-            speed = self.twos_complement(speed)
+        drive_bytes = []
+        drive_bytes += self.get_drive_output(speed)
+        drive_bytes += self.get_drive_output(turn)
+        self.serial.write("137")
+        self.serial.write(str(drive_bytes[0]))
+        self.serial.write(str(drive_bytes[1]))
+        self.serial.write(str(drive_bytes[2]))
+        self.serial.write(str(drive_bytes[3]))
 
-        if turn < 0:
-            turn = self.twos_complement(turn)
+    def drive_straight(self, speed):
+        drive_bytes = []
+        drive_bytes += self.get_drive_output(speed)
+        self.serial.write("137")
+        self.serial.write(str(drive_bytes[0]))
+        self.serial.write(str(drive_bytes[1]))
+        self.serial.write("128")
+        self.serial.write("000")
 
-        
+    def turn_clockwise(self, speed):
+        """
+        does this work if you write "-1" directly
+        or if you hash -1 through get_drive_output
+        """
+        pass
+
+    def turn_counterclockwise(self, speed):
+        """
+        see above
+        """
+        pass
 
     def cleaning(self, motor):
         """
