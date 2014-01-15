@@ -142,12 +142,19 @@ class Roomba:
         self.serial.write("138")
         self.serial.write(self.motor_dict[motor])
 
-    def leds(self, led, color, intensity):
+    def leds(self, p_color, p_intensity, status = 0, spot = 0, clean = 0, clean_max = 0):
         """
         do things with leds
+        p_color: 0-255 Green-Red
+        p_intensity: 0-255 off-on
+        status: 10 red 01 green 11 amber 00 off
+        spot, clean, max_clean: 1 on 0 off
         """
-        pass
-        #self.serial.write("139")
+        self.serial.write("139")
+        bits = str(status) + str(spot) + str(clean) + str(clean_max)
+        bits = int(bits, 2)
+        self.serial.write(str(bits))
+        self.serial.write(str(
 
     def sensor(self, sensor):
         """
