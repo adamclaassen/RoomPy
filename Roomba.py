@@ -154,7 +154,8 @@ class Roomba:
         bits = str(status) + str(spot) + str(clean) + str(clean_max)
         bits = int(bits, 2)
         self.serial.write(str(bits))
-        self.serial.write(str(
+        self.serial.write(str(p_color))
+        self.serial.write(str(p_intensity))
 
     def sensor(self, sensor):
         """
