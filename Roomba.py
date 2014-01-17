@@ -11,7 +11,7 @@ class Roomba:
         """
         generate a new instance of the class
         """
-        pass
+        self.led = [0,0,0,0,0,0]
 
     def open_serial_port(self, port, baudrate = 19200, timeout = 0.1):
         """
@@ -142,14 +142,21 @@ class Roomba:
         self.serial.write("138")
         self.serial.write(self.motor_dict[motor])
 
-    def leds(self, p_color, p_intensity, status = 0, spot = 0, clean = 0, clean_max = 0):
+    def leds(self, p_color = self.led[0], p_intensity = self.led[1], status self.led[2], spot = self.led[3], clean = self.led[4], clean_max = self.led[5]):
         """
         do things with leds
+        use this with kwargs, it will store your previous values
         p_color: 0-255 Green-Red
         p_intensity: 0-255 off-on
         status: 10 red 01 green 11 amber 00 off
         spot, clean, max_clean: 1 on 0 off
         """
+        self.led[0] = p_color
+        self.led[1] = p_intensity
+        self.led[2] = status
+        self.led[3] = spot
+        self.led[4] = clean
+        self.led[5] = clean_max
         self.serial.write("139")
         bits = str(status) + str(spot) + str(clean) + str(clean_max)
         bits = int(bits, 2)
