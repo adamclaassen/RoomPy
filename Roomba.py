@@ -7,10 +7,11 @@ class Roomba:
 
     baud_dict = {300:"0", 600:"1", 1200:"2", 2400:"3", 4800:"4", 9600:"5", 144000:"6", 19200:"7", 28800:"8", 38400:"9", 57600:"10", 115200:"11"}
     motor_dict = {"main":2, "vacuum":1, "side":0}
-    def __init__(self):
+    def __init__(self, test = false):
         """
         generate a new instance of the class
         """
+        self.test = test
         self.led = [0,255,1,0,0,0]
 
     def open_serial_port(self, port, baudrate = 19200, timeout = 0.1):
@@ -18,7 +19,10 @@ class Roomba:
         open a serial port with the default settings from the SCI manual
         or specify baudrate and/or timeout with keyword args
         """
-        self.serial = pyserial.Serial(port, baudrate, timeout)
+        if not self.test:
+          self.serial = pyserial.Serial(port, baudrate, timeout)
+        else:
+          self.serial = open("testlog.log", 'w')
     
 
     def set_off_mode(self):
