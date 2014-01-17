@@ -146,7 +146,7 @@ class Roomba:
         self.serial.write("138")
         self.serial.write(self.motor_dict[motor])
 
-    def leds(self, p_color = self.led[0], p_intensity = self.led[1], status self.led[2], spot = self.led[3], clean = self.led[4], clean_max = self.led[5]):
+    def leds(self, p_color = self.led[0], p_intensity = self.led[1], status = self.led[2], spot = self.led[3], clean = self.led[4], clean_max = self.led[5]):
         """
         do things with leds
         use this with kwargs, it will store your previous values
