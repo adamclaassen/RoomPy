@@ -189,7 +189,7 @@ class Roomba:
         byte2 = byte0[8:]
 
         if value >= 0:
-            return [int(byte1, 2), int(byte2, 2)]
+            return [str(int(byte1, 2)), str(int(byte2, 2))]
 
         else:
             for i in range(len(byte0)):
@@ -202,7 +202,7 @@ class Roomba:
             byte0 = bin(int(byte0, 2) + 1)
             byte1 = byte0[2:10]
             byte2 = byte0[10:]
-            return [int(byte1, 2), int(byte2, 2)]
+            return [str(int(byte1, 2)), str(int(byte2, 2))]
 
 
         
