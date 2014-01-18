@@ -177,32 +177,32 @@ class Roomba:
         self.serial.write(self.sensors[sensor])
 
   
-def get_drive_output(self, value):
-    byte0_out = ''
-    value = input("Value: ")
-    value = int(value)
+    def get_drive_output(self, value):
+        byte0_out = ''
+        value = input("Value: ")
+        value = int(value)
 
-    byte0 = bin(value)
-    byte0 = byte0[2:]
-    byte0 = byte0.zfill(16)
-    byte1 = byte0[:8]
-    byte2 = byte0[8:]
+        byte0 = bin(value)
+        byte0 = byte0[2:]
+        byte0 = byte0.zfill(16)
+        byte1 = byte0[:8]
+        byte2 = byte0[8:]
 
-    if value >= 0:
-        return [int(byte1, 2), int(byte2, 2)]
+        if value >= 0:
+            return [int(byte1, 2), int(byte2, 2)]
 
-    else:
-        for i in range(len(byte0)):
-            if byte0[i] == "1":
-                byte0_out += "0"
-            else:
-                byte0_out += "1"
+        else:
+            for i in range(len(byte0)):
+                if byte0[i] == "1":
+                    byte0_out += "0"
+                else:
+                    byte0_out += "1"
 
-        byte0 = "0b" + byte0_out
-        byte0 = bin(int(byte0, 2) + 1)
-        byte1 = byte0[2:10]
-        byte2 = byte0[10:]
-        return [int(byte1, 2), int(byte2, 2)]
+            byte0 = "0b" + byte0_out
+            byte0 = bin(int(byte0, 2) + 1)
+            byte1 = byte0[2:10]
+            byte2 = byte0[10:]
+            return [int(byte1, 2), int(byte2, 2)]
 
 
         
