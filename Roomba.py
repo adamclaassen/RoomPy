@@ -176,36 +176,33 @@ class Roomba:
         self.serial.write("142")
         self.serial.write(self.sensors[sensor])
 
-    def get_drive_output(self, value):
-        """
-        private function for turning mm/s drive speed or mm turn radius into properly formatted bytes for the roomba
-        """
-        if value >= 0:
-            value = hex(value)
-            value = value[2:].zfill(4)
-            byte1 = value[:1]
-            byte2 = value[2:]
-            byte1 = int(byte1, 16)
-            byte2 = int(byte2, 16)
-            return [byte1, byte2]
+  
+def get_drive_output(self, value):
+    byte0_out = ''
+    value = input("Value: ")
+    value = int(value)
 
-        if value < 0:
-            value = bin(value)
-            value = value[2:].zfill(16)
-            twos = ''
-            for bit in value:
-                if bit == '0': 
-                    twos += '1'
-                if bit == '1':
-                    twos += '0'
+    byte0 = bin(value)
+    byte0 = byte0[2:]
+    byte0 = byte0.zfill(16)
+    byte1 = byte0[:8]
+    byte2 = byte0[8:]
 
-            twos = '0b' + twos
-            twos = int(twos, 2)
-            hexed = hex(twos)
-            byte1 = hexed[2:3]
-            byte2 = hexed[4:5]
-            byte1 = int(byte1, 16)
-            byte2 = int(byte2, 16)
-            return [byte1, byte2]
-        
+    if value >= 0:
+        return [int(byte1, 2), int(byte2, 2)]
+
+    else:
+        for i in range(len(byte0)):
+            if byte0[i] == "1":
+                byte0_out += "0"
+            else:
+                byte0_out += "1"
+
+        byte0 = "0b" + byte0_out
+        byte0 = bin(int(byte0, 2) + 1)
+        byte1 = byte0[2:10]
+        byte2 = byte0[10:]
+        return [int(byte1, 2), int(byte2, 2)]
+
+
         
